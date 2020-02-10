@@ -1,0 +1,68 @@
+.masthead {
+    &--section {
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: top;
+        position: relative;
+        height: 450px;
+        margin-bottom: 60px;
+
+        @media screen and (min-width: 700px) {
+            height: 455px;
+            margin-bottom: 70px;
+            background-position: center;
+        }
+
+        @media screen and (min-width: 1200px) {
+            height: 750px;
+            margin-bottom: 122px;
+            background-position: center;
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        &__desktop {
+            display: none;
+            @media screen and (min-width: 900px) {
+                display: block;
+                background-position: top;
+                height: 0;
+                padding-bottom: 48.1334%;
+            }
+        }
+
+        &__mobile {
+            display: block;
+            background-position: top;
+            height: 0;
+            padding-bottom: 97.8667%;
+            @media screen and (min-width: 900px) {
+               display: none;
+            }
+        }
+    }
+
+    &--content {
+        width: 50%;
+        margin-left: 105px;
+
+        a:first-of-type {
+            margin-bottom: 14px;
+        }
+    }
+
+    &--heading {
+        margin-bottom: 65px;
+    }
+
+    &--button-well {
+        position: absolute;
+        left: 6%;
+        top: 52%;
+        @media screen and (min-width: 600px) {
+            left: 25%;
+        }
+    }
+}

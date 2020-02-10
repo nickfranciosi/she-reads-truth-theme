@@ -1,0 +1,9 @@
+{%- assign image_object = collection.image | default: collection.products.first.featured_image -%}
+<div class="collection-card">
+        <div class="collection-card--image-container">
+          <img src="{{ image_object.src | img_url: "300x" }}">
+        </div>
+        <div class="collection-card--text">
+          <p>{{collection.title}}</p>
+        </div>
+</div>

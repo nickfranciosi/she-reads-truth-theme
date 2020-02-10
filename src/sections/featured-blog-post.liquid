@@ -1,0 +1,59 @@
+{%- assign image_size = '1380x512' -%}
+<div class="featured-blog--section">
+    <div class="featured-blog--image-wrapper">
+        <img src="{{ section.settings.image.src | img_url: image_size }}">
+    </div>
+    <div class="featured-blog--content-wrapper">
+      <div class="header-section">
+        <h5 class="heading-small--with-line__left">{{section.settings.title}}</h5>
+        <h3 class="heading-medium featured-blog--title">
+          <strong>{{section.settings.headline}}</strong>
+           {{section.settings.sub_headline}}</h3>
+      </div>
+        <a href="{{section.settings.button_link}}" class="button--secondary">{{section.settings.button_text}}</a>
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Featured Blog post",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section title"
+      },
+      {
+        "type": "text",
+        "id": "headline",
+        "label": "Headline"
+      },
+      {
+        "type": "text",
+        "id": "sub_headline",
+        "label": "Sub Headline"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured blog post",
+        "category": "Blog"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,128 @@
+$mid-break: 1080px;
+
+.image-grid {
+    &--section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+        @media screen and (max-width: $mid-break) {
+            display: block;
+        }
+    }
+
+    &--half {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &--left {
+        &__top_image {
+            margin-bottom: 15px;
+            img {
+                object-fit: cover;
+                width: 585px;
+                height: 493px;
+            }
+        }
+        &__bottom_image {
+            align-self: flex-end;
+            img {
+                object-fit: cover;
+                width: 429px;
+                height: 394px;;
+            }
+        }
+
+        @media screen and (max-width: $mid-break) {
+            display: none;
+        }
+    }
+
+    &--right {
+        &__top_image {
+            margin-right: 15px;
+            @media screen and (max-width: $mid-break) {
+                margin: 0 10px;
+            }
+            img {
+                object-fit: cover;
+                width: 361px;
+                height: 553px;
+                @media screen and (max-width: $mid-break) {
+                    width: auto;
+                    height: auto;
+                }
+            }
+        }
+
+        &__bottom_image {
+            margin-top: 100px;
+            @media screen and (max-width: $mid-break) {
+                margin-top: 40px;
+            }
+            img {
+                object-fit: cover;
+                width: 330px;
+                height: 523px;
+                @media screen and (max-width: $mid-break) {
+                    width: auto;
+                    height: auto;
+                }
+            }
+        }
+
+        &__mobile_image {
+            display: none;
+            @media screen and (max-width: $mid-break) {
+                display: block;
+                align-self: flex-end;
+            }
+        }
+    }
+
+    &--image-group {
+        display: flex;
+    }
+
+    &--content {
+        margin-bottom: 58px;
+        @media screen and (max-width: $mid-break) {
+            margin: 0 auto;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .heading-small--with-line__left {
+            @media screen and (max-width: $mid-break) {
+                &:after {
+                    content: '';
+                    display: block;
+                    height: 1px;
+                    width: 10px;
+                    background: $background-secondary;
+                    margin: 20px auto 0;
+                }
+            }
+        }
+
+        a {
+            @media screen and (max-width: $mid-break) {
+                margin: 0 auto;
+                text-align: center;
+            }
+        }
+    }
+
+    &--headline {
+        margin: 20px 0 40px;
+    }
+}
+
+.image-grid--image-wrapper {
+    @media screen and (max-width: $mid-break) {
+        flex: 1;
+        img {
+            width: 100%;
+        }
+    }
+}

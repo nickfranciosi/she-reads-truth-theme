@@ -1,0 +1,69 @@
+{%- assign image_size = '2600x' -%}
+<div>
+    <div class="masthead--section masthead--section__desktop" style="background-image:url('{{ section.settings.image.src | img_url: image_size }}')">
+        <div class="masthead--content">
+            <div class="masthead--button-well">
+                <a href="{{section.settings.top_button_link}}" class="button--masthead">{{section.settings.top_button_text}}</a>
+    
+                <a href="{{section.settings.bottom_button_link}}" class="button--masthead">{{section.settings.bottom_button_text}}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="masthead--section masthead--section__mobile" style="background-image:url('{{ section.settings.image_mobile.src | img_url: image_size }}')">
+        <div class="masthead--content">
+            <div class="masthead--button-well">
+                <a href="{{section.settings.top_button_link}}" class="button--masthead">{{section.settings.top_button_text}}</a>
+    
+                <a href="{{section.settings.bottom_button_link}}" class="button--masthead">{{section.settings.bottom_button_text}}</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% schema %}    
+  {
+    "name": "Masthead",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background Image Desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Background Image Mobile"
+      },
+      {
+        "type": "text",
+        "id": "top_button_text",
+        "label": "Top Button text"
+      },
+      {
+        "type": "url",
+        "id": "top_button_link",
+        "label": "Top Button link"
+      },
+      {
+        "type": "text",
+        "id": "bottom_button_text",
+        "label": "Bottom Button text"
+      },
+      {
+        "type": "url",
+        "id": "bottom_button_link",
+        "label": "Bottom Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Masthead",
+        "category": "Promotional"
+      }
+    ]
+  }
+{% endschema %}

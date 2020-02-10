@@ -1,0 +1,110 @@
+{%- assign image_size = '300x' -%}
+<section class="main-section section--with-heading">
+    {% if section.settings.title != blank %}
+        <div class="heading-wrapper">
+          <h5 class="heading-small--with-line">{{ section.settings.title | escape }}</h5>
+        </div>
+    {% endif %}
+    <div class="feature-card-list">
+        {%- assign featureImage = section.settings.card_1_image.src -%}
+        {%- assign featureHeadline = section.settings.card_1_headline -%}
+        {%- assign featureSubheadline = section.settings.card_1_subheadline -%}
+        {%- assign link = section.settings.card_1_link -%}
+        
+          {% include 'feature-card'%}
+        
+
+        {%- assign featureImage = section.settings.card_2_image.src -%}
+        {%- assign featureHeadline = section.settings.card_2_headline -%}
+        {%- assign featureSubheadline = section.settings.card_2_subheadline -%}
+        {%- assign link = section.settings.card_2_link -%}
+        {% include 'feature-card'%}
+
+
+        {%- assign featureImage = section.settings.card_3_image.src -%}
+        {%- assign featureHeadline = section.settings.card_3_headline -%}
+        {%- assign featureSubheadline = section.settings.card_3_subheadline -%}
+        {%- assign link = section.settings.card_3_link -%}
+        {% include 'feature-card'%}
+    </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Offer List",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section title"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_1_image",
+        "label": "Card 1 Image"
+      },
+      {
+        "type": "text",
+        "id": "card_1_subheadline",
+        "label": "Card 1 Sub Header"
+      },
+      {
+        "type": "text",
+        "id": "card_1_headline",
+        "label": "Card 1 Headline"
+      },
+      {
+        "type": "url",
+        "id": "card_1_link",
+        "label": "Card 1 Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_2_image",
+        "label": "Card 2 Image"
+      },
+      {
+        "type": "text",
+        "id": "card_2_headline",
+        "label": "Card 2 Headline"
+      },
+      {
+        "type": "text",
+        "id": "card_2_subheadline",
+        "label": "Card 3 Sub Header"
+      },
+      {
+        "type": "url",
+        "id": "card_2_link",
+        "label": "Card 2 Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_3_image",
+        "label": "Card 3 Image"
+      },
+      {
+        "type": "text",
+        "id": "card_3_headline",
+        "label": "Card 3 Headline"
+      },
+      {
+        "type": "text",
+        "id": "card_3_subheadline",
+        "label": "Card 3 Sub Header"
+      },
+      {
+        "type": "url",
+        "id": "card_3_link",
+        "label": "Card 3 Link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Offer list",
+        "category": "Promotional"
+      }
+    ]
+  }
+{% endschema %}

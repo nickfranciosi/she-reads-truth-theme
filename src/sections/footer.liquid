@@ -1,0 +1,136 @@
+{% assign menu = linklists.footer-new.links %}
+<footer>
+  <div  class="footer-content--wrapper main-container">
+    <div class="footer-half">
+      <div class="footer-link-section">
+        <div class="footer-heading--wrapper">
+          <h6 class="heading-footer">Join Our Community</h6>
+        </div>
+        <div class="footer-email-sign-up--text">
+          <p>{{ 'general.newsletter_form.newsletter_email' | t }}</p>
+        </div>
+        <div class="footer-email-sign-up--form">
+            <form action="https://shereadstruth.us6.list-manage.com/subscribe?u=04efe6aef13fba462601c9f65&id=f40ecd3f14" method="post">
+              <input type="email" placeholder="Your email address" value="" name="EMAIL" id="mce-EMAIL">
+              <input type="submit" class="submit-button" value="Join">
+            </form>
+        </div>
+      </div>
+      <div class="footer-link-section">
+        <div class="footer-heading--wrapper">
+          <h6 class="heading-footer">{{menu[0].title}}</h6>
+        </div>
+        <ul class="link-list">
+          {% for sub_link in menu[0].links %}
+            <li><a href="{{sub_link.url}}">{{sub_link.title}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="footer-half">
+      <div class="footer-link-section">
+          <div class="footer-heading--wrapper">
+              <h6 class="heading-footer">{{menu[1].title}}</h6>
+          </div>
+          <ul class="link-list">
+            {% for sub_link in menu[1].links %}
+              <li><a href="{{sub_link.url}}">{{sub_link.title}}</a></li>
+            {% endfor %}
+          </ul>
+      </div>
+      <div class="footer-link-section">
+          <div class="footer-heading--wrapper">
+              <h6 class="heading-footer">{{menu[2].title}}</h6>
+          </div>
+          <ul class="link-list">
+            {% for sub_link in menu[2].links %}
+              <li><a href="{{sub_link.url}}">{{sub_link.title}}</a></li>
+            {% endfor %}
+          </ul>
+
+        {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+        <ul class="footer-social-links-list">
+            {% for social in social_accounts %}
+              {%- assign social_handle = social | handleize -%}
+              {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+              {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+        
+              {% if settings[social_link] != blank %}
+                <li>
+                  <a href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                    {% include social_icon %}
+                    <span class="icon-fallback-text">{{ social }}</span>
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+      </div>
+    </div>
+  </div>
+  <!-- {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+  <ul>
+    {% for social in social_accounts %}
+      {%- assign social_handle = social | handleize -%}
+      {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+      {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+
+      {% if settings[social_link] != blank %}
+        <li>
+          <a href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+            {% include social_icon %}
+            <span class="icon-fallback-text">{{ social }}</span>
+          </a>
+        </li>
+      {% endif %}
+
+    {% endfor %}
+  </ul>
+
+  {% if section.settings.show_payment_icons %}
+    {% unless shop.enabled_payment_types == empty %}
+      <span class="visually-hidden">{{ 'layout.footer.payment_methods' | t }}</span>
+      <ul class="payment-icons">
+        {% for type in shop.enabled_payment_types %}
+          <li>
+            {{ type | payment_type_svg_tag: class: 'icon' }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endunless %}
+  {% endif %}
+
+  {%- assign footer_linklist = section.settings.footer_linklist -%}
+  {% if linklists[footer_linklist].links.size > 0 %}
+    <ul>
+      {% for link in linklists[footer_linklist].links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <div>
+    <small>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}. {{ powered_by_link }}</small>
+  </div> -->
+</footer>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "First menu",
+        "default": "footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": false
+      }
+    ]
+  }
+
+{% endschema %}

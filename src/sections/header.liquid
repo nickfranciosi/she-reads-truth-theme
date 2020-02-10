@@ -1,0 +1,285 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available in the "Header" section in the theme editor.
+
+  Theme Store required settings
+  - Show announcement
+  - Text: message to announce
+  - Link: link of the announcement bar
+
+  Theme Store optional settings
+  - Home page only: only shows on the home page
+{%- endcomment -%}
+<section data-section-id="{{ section.id }}" data-section-type="header" class="header-wrapper">
+  <div class="header-desktop">
+    <div class="container container-wide">
+      {%- if section.settings.announcement_bar_enabled -%}
+        <div>
+          {%- if section.settings.announcement_bar_home_page_only == false or template.name == 'index' -%}
+            {%- if section.settings.announcement_bar_link != blank -%}
+              <a href="{{ section.settings.announcement_bar_link }}">
+                {{ section.settings.announcement_bar_text | escape }}
+              </a>
+            {%- else -%}
+              <p>{{ section.settings.announcement_bar_text | escape }}</p>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <header role="banner">
+        {% if template.name == 'index' %}
+          <h1>
+        {% else %}
+          <div class="h1">
+        {% endif %}
+
+          {% if settings.logo_use_image %}
+            <a href="/" itemprop="url">
+              <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+            </a>
+          {% else %}
+            <a href="/" class="logo-image">
+              <img class="hero__logo-image" src="{{ 'logo_desktop.svg' | asset_url }}" alt="{{ shop.name }}" itemprop="logo"> 
+            </a>
+          {% endif %}
+        {% if template.name == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+        <!-- <form action="/search" method="get" role="search">
+          <label for="Search-{{ section.id }}" class="label-hidden">
+            {{ 'general.search.placeholder' | t }}
+          </label>
+
+          <input type="search"
+            name="q"
+            id="Search-{{ section.id }}"
+            value="{{ search.terms | escape }}"
+            placeholder="{{ 'general.search.placeholder' | t }}">
+
+          <button type="submit" class="button">
+            {% include 'icon-search' %}
+            <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+          </button>
+        </form> -->
+      </header>
+
+      <nav role="navigation">
+        <ul class="main-links">
+          {% for link in linklists.main-menu-new.links %}
+            {% if link.links != blank %}
+              <li class="mega-nav-trigger">
+                <a href="#">
+                  {{link.title}}
+                </a>
+
+                <div class="mega-nav-section">
+                      <div class="mega-nav-column-container clearfix">
+                          {% for sub_link in link.links %}
+                            <div class="mega-nav-column">
+                                <h6 class="heading-mega-nav">{{sub_link.title}}</h6>
+                                <div class="meg-nav-column-content">
+                                  {% if sub_link.links.first.type == 'collection_link'%}
+                                    {% unless sub_link.title == "More"%}
+                                      {% if sub_link.links.first.object.description != blank%}
+                                        {{ sub_link.links.first.object.description }}
+                                      {% else %}
+                                        <img src="{{ sub_link.links.first.object.products.first.featured_image | img_url: '600x300'}}" />
+                                      {% endif %}
+                                    {% endunless %}
+                                  {% elsif sub_link.links.first.type == 'product_link'%}
+                                    {% unless sub_link.title == "More"%}
+                                    <img src="{{ sub_link.links.first.object.featured_image | img_url: '600x300'}}" />
+                                    {% endunless %}
+                                  {% else %}
+                                    {% unless sub_link.title == "More"%}
+                                    <img src="{{ 'category_banner_default.jpg' | asset_img_url: '166x100'}}" />
+                                    {% endunless %}
+                                  {% endif %}
+
+                                  
+                                  <ul class="link-list">
+                                      {% for final_link in sub_link.links %}
+                                        <li><a href="{{final_link.url}}">{{final_link.title}}</a></li>
+                                      {% endfor %}
+                                  </ul>
+                                </div>
+                            </div>
+                          {% endfor %}
+                      </div>
+                </div>
+            </li>
+            {% else %}
+              <li>
+                <a href="{{ link.url }}">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          <li class="header-search-nav-item">
+            <a href="/search" class="search-link">
+              {% include 'icon-search' %} 
+            </a>
+        </li>
+          <li class="header-cart-nav-item">
+              <a href="/cart" class="cart-link">
+                {% include 'icon-cart' %}
+                {% if cart.item_count > 0 %}
+
+                  <div class="header-cart-count-wrapper">
+                    <span>{{ cart.item_count }}</span>
+                  </div>
+                {% endif %}
+              </a>
+          </li>
+        </ul>
+        
+      </nav>
+    </div>
+  </div>
+  <div class="header-mobile">
+      <div class="container container-wide">
+        <div>
+            <a href="#mobile-menu" id="mobile-menu-trigger">
+              <div class="hamburger">
+                  <span class="hamburger-line"></span>
+                  <span class="hamburger-line"></span>
+                  <span class="hamburger-line"></span>
+              </div>
+            </a>
+        </div>
+
+        <div>
+            <a href="/" class="logo-image">
+              <img class="hero__logo-image" src="{{ 'mobile_icon.svg' | asset_url }}" alt="{{ shop.name }}" itemprop="logo"> 
+            </a>
+        </div>
+
+        <div class="header-cart-nav-item">
+            <a href="/cart">
+              {% include 'icon-cart' %}
+              {% if cart.item_count > 0 %}
+
+                <div class="header-cart-count-wrapper">
+                  <span>{{ cart.item_count }}</span>
+                </div>
+              {% endif %}
+            </a>
+        </div>
+      </div>
+
+
+  </div>
+</section>
+
+{% if section.settings.logo != blank %}
+  <style>
+    .logo-image {
+      display: block;
+      max-width: {{ section.settings.logo_max_width }}px;
+    }
+  </style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Announcement bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "announcement_bar_enabled",
+        "label": "Show announcement",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "announcement_bar_home_page_only",
+        "label": "Show on home page only",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_bar_text",
+        "label": "Announcement text",
+        "default": "Announce something here"
+      },
+      {
+        "type": "url",
+        "id": "announcement_bar_link",
+        "label": "Announcement link",
+        "info": "Optional"
+      },
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "min": 50,
+        "max": 450,
+        "step": 10,
+        "unit": "px",
+        "label": "Custom logo width",
+        "default": 250
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Menu",
+        "default": "main-menu"
+      }
+    ]
+  }
+{% endschema %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "{{ shop.name }}",
+  {% if section.settings.logo %}
+    {% assign image_size = section.settings.logo.width | append:'x' %}
+    "logo": "https:{{ section.settings.logo | img_url: image_size }}",
+  {% endif %}
+  "sameAs": [
+    "{{ settings.social_twitter_link }}",
+    "{{ settings.social_facebook_link }}",
+    "{{ settings.social_pinterest_link }}",
+    "{{ settings.social_instagram_link }}",
+    "{{ settings.social_tumblr_link }}",
+    "{{ settings.social_snapchat_link }}",
+    "{{ settings.social_youtube_link }}",
+    "{{ settings.social_vimeo_link }}"
+  ],
+  "url": "{{ shop.url }}{{ page.url }}"
+}
+</script>
+
+{% if template.name == 'index' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "url": "{{ shop.url }}{{ page.url }}"
+    }
+  </script>
+{% endif %}

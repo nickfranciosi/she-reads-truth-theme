@@ -1,0 +1,46 @@
+$mobile-break: 900px;
+
+.image-banner {
+
+    &--section {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        margin: 0 auto;
+        height: 512px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+
+        @media screen and (max-width: $mobile-break) {
+           background-image: none !important;
+           border-top: 1px solid #DEDEDE;
+           border-bottom: 1px solid #DEDEDE;
+           color:black;
+           width: 90%;
+           height: auto;
+           padding: 40px 0;
+        }
+
+        .content-wrapper {
+            max-width: 885px;
+        }
+
+
+    }
+
+    &--text {
+        margin-bottom: 55px;
+        @media screen and (max-width: $mobile-break) {
+            margin-bottom: 25px;
+            max-width: 400px;
+        }
+    }
+
+    &--button {
+        margin: 0 auto;
+    }
+}

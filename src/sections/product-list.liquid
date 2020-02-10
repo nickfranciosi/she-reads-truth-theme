@@ -1,0 +1,39 @@
+
+{%- assign collection = collections[section.settings.collection] -%}
+<section class="section container section--with-heading">
+    {% if section.settings.title != blank %}
+      <div class="heading-wrapper">
+        <h5 class="heading-small--with-line">{{ section.settings.title | escape }}</h5>
+      </div>  
+    {% endif %}
+    <div class="product-list">
+      {% for product in collection.products limit: 4 %}
+        {%- include 'bold-product' with product, hide_action: 'skip' -%}
+        {% include "product-list-item" with product %}
+      {% endfor %}
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Product List",
+    "settings": [
+     {
+        "type": "text",
+        "id": "title",
+        "label": "Section title"
+      },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection of featured products"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product list",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}

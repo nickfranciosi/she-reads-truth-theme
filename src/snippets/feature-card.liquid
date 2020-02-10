@@ -1,0 +1,8 @@
+{%- assign image_size = '600x' -%}
+<a class="feature-card" style="background-image:url('{{ featureImage | img_url: image_size }}')" href="{{link}}">
+    <!-- <img src="{{ "placeholder-blog-image.jpg" | asset_img_url: "300x" }}">s -->
+    <div class="feature-card--text-block">
+        <h4 class="feature-card--main-header">{{featureHeadline}}</h4>   
+        <h5 class="feature-card--sub-header heading-card--small">{{featureSubheadline}}</h5>
+    </div>
+</a>

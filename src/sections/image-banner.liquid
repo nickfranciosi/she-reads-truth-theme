@@ -1,0 +1,44 @@
+{%- assign image_size = '1380x512' -%}
+<div class="main-section main-section--wide">
+  <div class="image-banner--section" style="background-image:url('{{ section.settings.image.src | img_url: image_size }}')">
+      <div class="content-wrapper">
+          <p class="image-banner--text heading-banner">{{section.settings.text}}</p>
+
+          <a href="{{section.settings.button_link}}" class="image-banner--button button--primary">{{section.settings.button_text}}</a>
+      </div>
+  </div>
+</div>
+
+{% schema %}    
+  {
+    "name": "Image Banner",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "textarea",
+        "id": "text",
+        "label": "Text"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image Banner",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,26 @@
+
+<div class="page-container">
+    <div class="breadcrumbs">
+        <a href="/collections">Collections</a>
+        <span>/</span>
+        <p>{{ page_title }}</p>
+     </div>
+    <div class="page-container--header-row small-gap">
+        <h1 class="heading-section">{{ page_title }}</h1>
+    </div>
+    <div class="collection-banner--wrapper">
+     {% if collection.description != blank%}
+      {{ collection.description }}
+     {% else %}
+     <img src="{{ 'category_banner_default.jpg' | asset_img_url: '1220x350'}}" />
+     {% endif %}
+    </div>
+    <div class="collection-card--image-container">
+      <div class="product-list">
+        {% for product in collection.products %}
+{%- include 'bold-product' with product, hide_action: 'skip' -%}
+          {% include 'product-list-item'%}
+        {% endfor %}
+      </div>
+    </div>
+</div>

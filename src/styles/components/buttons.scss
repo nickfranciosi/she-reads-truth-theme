@@ -1,0 +1,107 @@
+$normal-easing: cubic-bezier(.5, 0, .5, 1);
+$transition-normal: 300ms;
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: auto;
+  border: 0;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  user-select: none;
+  appearance: none;
+  font-family: lato, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1rem;
+  letter-spacing: 3.5px;
+  text-align: center;
+  border-width: 2px;
+  border-style: solid;
+  height: 53px;
+  cursor: pointer;
+  padding: 0 40px;
+  max-width: 225px;
+  text-transform: uppercase;
+  transition: 
+    background $transition-normal $normal-easing,
+    color $transition-normal $normal-easing,
+    border-color $transition-normal $normal-easing;
+
+  &--primary{
+    @extend .button;
+    background: #E67063;
+    border-color: #E67063;
+    color: #FFFFFF;
+    &:hover {
+      background: white;
+      color: black;
+      border-color: black;
+    }
+  }
+
+  &--secondary {
+    @extend .button;
+    color: black;
+    border: 2px solid #000000;
+    border-color: #000000;
+    background: transparent;
+
+    &:hover {
+      background: white;
+    }
+  }
+
+  &--masthead {
+    @extend .button;
+    color: black;
+    border: 2px solid #000000;
+    border-color: #000000;
+    background: white;
+
+    &:hover {
+      background: #E67063;
+      border-color: #E67063;
+      color: #FFFFFF;
+    }
+  }
+
+  &--submit  {
+    @extend .button;
+    color: white;
+    border-color: #6DAFA4;
+    background: #6DAFA4;
+
+    &:hover {
+      background: transparent;
+      color: black;
+    }
+  }
+
+  &--update  {
+    @extend .button;
+    color: white;
+    border-color: #BCC0C6;
+    background: #BCC0C6;
+
+    &:hover {
+      background: transparent;
+      color: black;
+    }
+  }
+
+  &:disabled {
+    background: #dddddd;
+    border-color: #dddddd;
+    color: #BCC0C6;
+    cursor: not-allowed;
+    &:hover {
+      background: #dddddd;
+      color: #BCC0C6;
+      border-color: #dddddd;
+    }
+  }
+}

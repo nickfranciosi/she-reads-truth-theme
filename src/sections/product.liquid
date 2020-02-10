@@ -1,0 +1,234 @@
+{%- include 'bold-product' with product, hide_action: 'break', output: 'none' -%}
+<section class="page-container" data-section-id="{{ section.id }}" data-section-type="product">
+    <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <p>{{ page_title }}</p>
+     </div>
+  {%- assign current_variant = bold_selected_or_first_available_variant -%}
+{%- include 'bold-variant' with current_variant, output: 'none' -%}
+  {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+
+  <div class="product-main-section">
+    <div class="product-image-thumbnails thumbnails-desktop">
+        {% if product.images.size > 1 %}
+        <ul>
+          {% for image in product.images %}
+            <li>
+              <a href="{{ image.src | img_url: '480x480' }}" {% if featured_image == image %} aria-current="true"{% endif %} class="{% if featured_image == image %} active-thumbnail {% endif %}">
+                <img class="product-single__thumbnail-image" src="{{ image.src | img_url: '160x160' }}" alt="{{ image.alt | escape }}">
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div class="slick-product-image-gallery">
+        {% for image in product.images %}
+          <img src="{{ image | img_url: '650x700' }}"" />
+        {% endfor %}
+    </div>
+
+    <!-- <div class="product-image-thumbnails thumbnails-mobile">
+        {% if product.images.size > 1 %}
+        <ul>
+          {% for image in product.images %}
+            <li>
+              <a href="{{ image.src | img_url: '480x480' }}" {% if featured_image == image %} aria-current="true"{% endif %} class="{% if featured_image == image %} active-thumbnail{% endif %}">
+                <img class="product-single__thumbnail-image" src="{{ image.src | img_url: '160x160' }}" alt="{{ image.alt | escape }}">
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div> -->
+
+    <div class="product-info">
+
+      <div class="product-heading-section">
+        <h1 class="heading-section product-title">{{ product.title }}</h1>
+        <p>{{ product.vendor }}</p>
+      </div>
+
+      <div data-price-wrapper class="product-price-section">
+        <span data-product-price class="price-text price-text--large">
+          {{ bold_variant_price | money }}
+        </span>
+
+        {% if bold_compare_at_price_max > bold_price %}
+          <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+          <span data-compare-price class="price-text price-text--large original-price">
+            {% if current_variant.compare_at_price > bold_variant_price %}
+              {{ current_variant.compare_at_price | money }}
+            {% endif %}
+          </span>
+        {% endif %}
+      </div>
+
+      {% capture "bold_form_classes" %}shapp_qb_prod{% endcapture %}
+{% form 'product', product, class:bold_form_classes, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true' %}
+      {% unless bold_variants_size == 1 and bold_selected_or_first_available_variant.title contains "Default Title" or bold_selected_or_first_available_variant.title contains "1+" %}
+        {% for option in product.options_with_values %}
+          <div class="js product-variant-options">
+
+            {% if forloop.index0 > 0 %}
+
+{%- assign optName = 'options' | append: forloop.index -%}
+{%- assign option_values = [optName] | default: option.values -%}
+{%- for value in option_values -%}
+                <input type="radio" id="Option{{ option.position }}-{{ value }}" name="options[{{ option.name }}]" value="{{ value }}"{% if option.selected_value == value %} checked{% endif %}>
+                <label for="Option{{ option.position }}-{{ value }}">{{ value }}</label>
+              {% endfor %}
+
+            {% else %}
+
+              <label for="Option{{ option.position }}">
+                {{ option.name }}
+              </label>
+
+              <select
+                id="Option{{ option.position }}"
+                name="options[{{ option.name | escape }}]">
+{%- assign optName = 'options' | append: forloop.index -%}
+{%- assign option_values = [optName] | default: option.values -%}
+{%- for value in option_values -%}
+                  <option
+                    value="{{ value | escape }}"
+                    {% if option.selected_value == value %}selected="selected"{% endif %}>
+                      {{ value }}
+                  </option>
+                {% endfor %}
+              </select>
+
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endunless %}
+
+        <select name="id" class="visually-hidden">
+          {% for variant in product.variants %}
+{%- include 'bold-variant' with variant, hide_action: 'skip' -%}
+            <option
+              {% if variant == current_variant %}selected="selected"{% endif %}
+              {% unless variant.available %}disabled="disabled"{% endunless %}
+              value="{{ variant.id }}">
+                {{ variant.title }}
+            </option>
+          {% endfor %}
+        </select>
+
+      <div class="product-options-form-group">
+
+        <div class="product-options--quantity-select">
+          <div class="fake-quantity-select-wrapper">
+              <p class="quantity-select-label">Qty</p>
+            <div class="fake-quantity-select">
+              <a class="quantity-button"  href="#" id="quantity-decrement">-</a>
+              <span class="quantity-amount" id="quantity-amount">1</span>
+              <a class="quantity-button"  href="#" id="quantity-increment">+</a>
+            </div>
+          </div>
+          <div class="real-quantity-select">
+            <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+            <input type="number" id="Quantity" name="quantity" value="1" min="1">
+          </div>
+        </div>
+
+        <div class="product-submit-button-container">
+          <button
+            type="submit"
+            name="add"
+            class="button button--submit"
+            data-submit-button
+            {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+              <span data-submit-button-text>
+                {% if current_variant.available %}
+                  {{ 'products.product.add_to_cart' | t }}
+                {% else %}
+                  {{ 'products.product.sold_out' | t }}
+                {% endif %}
+              </span>
+          </button>
+        </div>
+      </div>
+    
+    {% if current_variant.inventory_management == "shopify" and current_variant.inventory_policy != "continue" and current_variant.inventory_quantity <= 99  and current_variant.inventory_quantity > 24 %}
+      <div class="product-remaining-stock">
+        <p class="danger-text"> Almost gone!</p>
+      </div>  
+    {% endif %}
+    {% if current_variant.inventory_management == "shopify" and current_variant.inventory_policy != "continue" and current_variant.inventory_quantity <= 24  and current_variant.inventory_quantity > 10 %}
+      <div class="product-remaining-stock">
+        <p class="danger-text"> Only a few left!</p>
+      </div>  
+    {% endif %}
+    {% if current_variant.inventory_management == "shopify" and current_variant.inventory_policy != "continue" and current_variant.inventory_quantity <= 10  and current_variant.inventory_quantity > 0 %}
+      <div class="product-remaining-stock">
+        <p class="danger-text">Only {{current_variant.inventory_quantity}} left!</p>
+      </div>  
+    {% endif %}
+      <div class="product-accordion-wrapper">
+          <dl class="accordion">
+
+              <dt><a href=""><span>Details</span> <span class="chevron bottom"></span></a></dt>
+              <dd>
+                <div class="acc-content-container">
+                  {{product.description}}
+                </div>
+                <button class="read-more"><span>Read more</span> <span class="chevron bottom"></span></button>
+              </dd>
+              
+              <dt><a href=""><span>shipping & returns</span> <span class="chevron bottom"></span></a></dt>
+              <dd>{{ pages['refund-policy'].content }}</dd>
+              
+              {% if product_has_qb %}
+              <dt><a href=""><span>BULK pricing</span> <span class="chevron bottom"></span></a></dt>
+              <dd>
+                {%- unless qb_loaded == 'true' -%}
+                <div class='shappify-qty-msg'>{{bold_selected_or_first_available_variant.metafields.shappify_csp.pricing_html}}</div>
+                {%- assign qb_loaded = 'true' -%}
+                {%- endunless -%}
+              </dd>
+			        {% endif %}
+
+            
+              <dt><a href=""><span>review</span> <span class="chevron bottom"></span></a></dt>
+              <dd><div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div></dd>
+              </dl>
+
+      </div>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{%- assign current_product_title = product.title -%}
+{%- assign all_collection_products = product.collections[0].products -%}
+<section class="section container section--with-heading related-products">
+      <div class="heading-wrapper">
+        <h5 class="heading-small--with-line">Related Products</h5>
+      </div>  
+    <div class="product-list">
+      {% for product in all_collection_products limit: 4 %}
+        {% if product.title <> current_product_title%}
+        {%- include 'bold-product' with product, hide_action: 'skip' -%}
+          {% include "product-list-item" with product %}
+        {% endif %}
+      {% endfor %}
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

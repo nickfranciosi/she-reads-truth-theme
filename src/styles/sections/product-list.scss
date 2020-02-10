@@ -1,0 +1,16 @@
+$mobile-break: 650px;
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 260px));
+    grid-gap: 6rem;
+    align-items: end;
+    justify-content: center;
+    @media screen and (max-width: 1395px){
+        grid-template-columns: repeat(2, 260px);
+    }
+    @media screen and (max-width: $mobile-break){
+        grid-template-columns: repeat(auto-fit, minmax(260px, 260px));
+        grid-gap: 1.5rem;
+    }
+}

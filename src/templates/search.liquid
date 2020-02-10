@@ -1,0 +1,101 @@
+<div class="page-container">
+{% paginate search.results by 10 %}
+
+  <h1 class="search-main-heading heading-medium">
+    {% if search.performed %}
+      <span class="visually-hidden">{{ 'general.search.heading' | t: count: search.results_count }}:</span>
+        {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {% else %}
+      {{ 'general.search.title' | t }}
+    {% endif %}
+  </h1>
+
+  <form action="/search" method="get" role="search" class="search-form">
+    <label for="Search" class="label-hidden">
+      {{ 'general.search.placeholder' | t }}
+    </label>
+
+    <div class="search-form--input-section">
+      <input type="search"
+            name="q"
+            class="search-form-input"
+            id="Search"
+            value="{{ search.terms | escape }}"
+            placeholder="{{ 'general.search.placeholder' | t }}">
+      <button type="submit" class="button">
+        {% include 'icon-search' %}
+        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+      </button>
+    </div>
+  </form>
+
+  <div class="search-results-section">
+
+    {% if search.performed %}
+      {% if search.results_count == 0 %}
+        <p>{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
+      {% else %}
+        <h2 class="visually-hidden">{{ 'general.search.heading' | t: count: search.results_count }}</h2>
+        <!-- <ul>
+          {% for item in search.results %}
+  {%- include 'bold-product' with item, hide_action: 'skip' -%}
+            <li>
+              <a href="{{ item.url | within: collection }}">
+                {% assign featured_image = item.image | default: item.featured_image %}
+                {% if featured_image != blank %}
+                  {{ featured_image | img_url: '240x240' | img_tag }}
+                {% endif %}
+                <h3>{{ item.title }}</h3>
+              </a>
+              {% if item.object_type == 'product' %}
+                <p>
+                  {% if bold_compare_at_price > bold_price %}
+                    {% if bold_price_varies %}
+                      {% assign sale_price = bold_price | money %}
+                      {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                    {% else %}
+                      {{ 'products.product.on_sale' | t }}
+                      <span>{{ bold_price | money }}</span>
+                    {% endif %}
+                    <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                    <s>{{ bold_compare_at_price | money }}</s>
+                  {% else %}
+                    {% if bold_price_varies %}
+                      {% assign price = bold_price | money %}
+                      <span>{{ 'products.product.from_text_html' | t: price: price }}</span>
+                    {% else %}
+                      <span>{{ bold_price | money }}</span>
+                    {% endif %}
+                  {% endif %}
+                  {% unless item.available %}
+                  {{ 'products.product.sold_out' | t }}
+                  {% endunless %}
+                </p>
+              {% else %}
+                <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
+              {% endif %}
+
+            </li>
+          {% endfor %}
+        </ul> -->
+
+        <div class="product-list">
+          {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+              {% assign product = item %}
+              {%- include 'bold-product' with product, hide_action: 'skip' -%}
+              {% include 'product-list-item'%}
+            {% else %}
+              {% include 'generic-list-item'%}
+            {% endif %} 
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          {% include 'pagination' %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </div>
+{% endpaginate %}
+</div>

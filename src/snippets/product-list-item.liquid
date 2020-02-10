@@ -1,0 +1,33 @@
+{%- assign current_variant = bold_selected_or_first_available_variant -%}
+{%- include 'bold-variant' with current_variant, output: 'none' -%}
+
+<a class="product-list-item-link-wrapper" href="{{product.url}}">
+  <div class="product-list-item">
+      <div class="product-list-item--image-container">
+          {% if bold_compare_at_price_max > bold_price %}
+            <div class="product-list-item--badge on-sale-badge">Sale</div>
+          {% endif %}
+
+          {% if product.tags contains 'New' %}
+          <div class="product-list-item--badge new-badge">New</div>
+          {% endif %}
+        <img src="{{ product.featured_image | img_url: "300x" }}">
+      </div>
+      <div class="product-list-item--content-container">
+        <div class="product-list-item--text">
+          <p class="product-text__title">{{product.title}}
+          </p>
+          <p class="product-text__sub-title">{{product.vendor}}</p>
+        </div>
+        <div class="product-list-item--divider"></div>
+        <div class="product-list-item--price-container">
+          {% if bold_compare_at_price_max > bold_price %}
+            <p class="price-text">{{ bold_price | money }}</p>
+            <p class="price-text original-price">{{bold_compare_at_price | money}}</p>
+          {% else %}
+            <p class="price-text">{{bold_price | money}}</p>
+          {% endif %}
+        </div>
+      </div>
+  </div>
+</a>

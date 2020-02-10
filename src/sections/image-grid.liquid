@@ -1,0 +1,83 @@
+<div class="main-section main-section--wide image-grid--section">
+    <div class="image-grid--half image-grid--left">
+        <div class="image-grid--image-wrapper image-grid--left__top_image">
+            <img src="{{ section.settings.image_left_top.src | img_url: "900x" }}">
+        </div>
+        <div class="image-grid--image-wrapper image-grid--left__bottom_image">
+            <img src="{{ section.settings.image_left_bottom.src | img_url: "600x" }}">
+        </div>
+    </div>
+    <div class="image-grid--half image-grid--right">
+        <div class="image-grid--content">
+            <h5 class="heading-small--with-line__left">{{section.settings.title}}</h5>
+            <h3 class="heading-medium image-grid--headline">{{section.settings.headline}}</h3>
+            <a href="{{section.settings.button_link}}" class="button--primary">{{section.settings.button_text}}</a> 
+        </div>
+        <div class="image-grid--image-group">
+            <div class="image-grid--image-wrapper image-grid--right__mobile_image">
+                <img src="{{ section.settings.image_left_bottom.src | img_url: "600x" }}">
+            </div>
+            <div class="image-grid--image-wrapper image-grid--right__top_image">
+                <img src="{{ section.settings.image_right_top.src | img_url: "600x" }}">
+            </div>
+            <div class="image-grid--image-wrapper image-grid--right__bottom_image">
+                <img src="{{ section.settings.image_right_bottom.src | img_url: "600x" }}">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% schema %}    
+  {
+    "name": "Image Grid",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section title"
+      },
+      {
+        "type": "text",
+        "id": "headline",
+        "label": "Headline"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_left_top",
+        "label": "Left Top Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_left_bottom",
+        "label": "Left Bottom Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_right_top",
+        "label": "Right Top Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_right_bottom",
+        "label": "Right Bottom Image"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image Grid",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

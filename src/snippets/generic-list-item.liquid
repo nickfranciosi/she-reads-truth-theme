@@ -1,0 +1,8 @@
+<a class="product-list-item-link-wrapper" href="{{item.url}}">
+    <div class="product-list-item">
+        <div class="generic-list-item--content">
+            <h4 class="generic-list-item--title">{{item.title}}</h4>
+            <p>{{ item.content | strip_html | truncatewords: 40 }}</p>
+        </div>
+    </div>
+</a>

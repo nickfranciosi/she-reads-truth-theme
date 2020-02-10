@@ -1,0 +1,23 @@
+{% comment %}
+  This page represents the /collections and /products pages.
+{% endcomment %}
+
+<div class="page-container">
+  <div class="page-container--header-row">
+    <h1 class="heading-section">{{ page_title }}</h1>
+  </div>
+
+  <div class="collection-card-list">
+    {% for collection in collections limit: 12 %}
+      {% unless collection.handle == 'frontpage' %}
+        <a 
+          href="{{ collection.url }}" 
+          title="{{ 'collections.general.link_title' | t: title: title }}"
+          class="collection-card-link-wrapper"
+        >
+          {% include 'collection-card' with collection%}
+        </a>
+      {% endunless %}
+    {% endfor %}
+  </div>
+</div>
